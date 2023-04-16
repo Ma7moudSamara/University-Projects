@@ -1,0 +1,1 @@
+-w -erf C:/My_Designs/final/finalproject/compile/finalproject.erf -d C:/My_Designs/final/finalproject/compile -s C:/My_Designs/final/finalproject/library.cfg -j C:/My_Designs/final/finalproject/projlib.cfg -work finalproject -O3 -e 100 -work finalproject -2002 C:/My_Designs/final/finalproject/src/finalADVANCED.vhd 

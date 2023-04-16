@@ -1,0 +1,109 @@
+WARNING DAGGEN_0523: "The source is compiled without the -dbg switch. Line breakpoints and assertion debug will not be available."
+MESSAGE "File: C:/My_Designs/final/finalproject/src/finalADVANCED.vhd" 
+BEGINPROGRESS C:/My_Designs/final/finalproject/src/finalADVANCED.vhd
+MESSAGE "Compile Entity "AND_GATE"" 
+UPDATEPROGRESS 1
+UPDATEPROGRESS 2
+MESSAGE "Compile Architecture "struct_and" of Entity "AND_GATE"" 
+UPDATEPROGRESS 4
+MESSAGE "Compile Entity "OR_GATE"" 
+UPDATEPROGRESS 5
+UPDATEPROGRESS 6
+MESSAGE "Compile Architecture "struct_or" of Entity "OR_GATE"" 
+UPDATEPROGRESS 8
+MESSAGE "Compile Entity "XOR_GATE"" 
+UPDATEPROGRESS 9
+UPDATEPROGRESS 10
+MESSAGE "Compile Architecture "struct_xor" of Entity "XOR_GATE"" 
+UPDATEPROGRESS 12
+UPDATEPROGRESS 13
+MESSAGE "Compile Entity "half_adder"" 
+UPDATEPROGRESS 14
+MESSAGE "Compile Architecture "half_adder_arch" of Entity "half_adder"" 
+UPDATEPROGRESS 15
+UPDATEPROGRESS 16
+UPDATEPROGRESS 17
+UPDATEPROGRESS 18
+MESSAGE "Compile Entity "fulladder"" 
+UPDATEPROGRESS 19
+MESSAGE "Compile Architecture "FA_arch" of Entity "fulladder"" 
+UPDATEPROGRESS 20
+UPDATEPROGRESS 22
+MESSAGE "Compile Entity "bit_adder"" 
+UPDATEPROGRESS 23
+UPDATEPROGRESS 24
+MESSAGE "Compile Architecture "bit_structural" of Entity "bit_adder"" 
+UPDATEPROGRESS 25
+UPDATEPROGRESS 26
+UPDATEPROGRESS 27
+UPDATEPROGRESS 28
+UPDATEPROGRESS 29
+MESSAGE "Compile Entity "stage1_mult"" 
+UPDATEPROGRESS 30
+UPDATEPROGRESS 31
+MESSAGE "Compile Architecture "stage1_multBHV" of Entity "stage1_mult"" 
+UPDATEPROGRESS 32
+UPDATEPROGRESS 33
+UPDATEPROGRESS 35
+UPDATEPROGRESS 38
+UPDATEPROGRESS 40
+UPDATEPROGRESS 45
+UPDATEPROGRESS 47
+UPDATEPROGRESS 48
+MESSAGE "Compile Entity "TestGenerator"" 
+UPDATEPROGRESS 50
+MESSAGE "Compile Architecture "behavioral" of Entity "TestGenerator"" 
+UPDATEPROGRESS 54
+UPDATEPROGRESS 55
+UPDATEPROGRESS 56
+MESSAGE "Compile Entity "ResultAnalyser"" 
+UPDATEPROGRESS 57
+MESSAGE "Compile Architecture "analyser" of Entity "ResultAnalyser"" 
+UPDATEPROGRESS 59
+UPDATEPROGRESS 60
+UPDATEPROGRESS 61
+MESSAGE "Compile Entity "PMUTL_TEST"" 
+UPDATEPROGRESS 62
+MESSAGE "Compile Architecture "tb" of Entity "PMUTL_TEST"" 
+UPDATEPROGRESS 63
+UPDATEPROGRESS 64
+UPDATEPROGRESS 65
+UPDATEPROGRESS 68
+UPDATEPROGRESS 69
+MESSAGE "Compile Entity "nADDER"" 
+UPDATEPROGRESS 70
+MESSAGE "Compile Architecture "AdderN_Behavioral" of Entity "nADDER"" 
+UPDATEPROGRESS 71
+UPDATEPROGRESS 72
+UPDATEPROGRESS 73
+MESSAGE "Compile Entity "Registerr"" 
+UPDATEPROGRESS 74
+UPDATEPROGRESS 75
+UPDATEPROGRESS 76
+MESSAGE "Compile Architecture "RegN_Behavioral" of Entity "RegN"" 
+UPDATEPROGRESS 79
+UPDATEPROGRESS 80
+UPDATEPROGRESS 81
+MESSAGE "Compile Entity "Stage2_mult"" 
+UPDATEPROGRESS 83
+MESSAGE "Compile Architecture "BEHAV" of Entity "Stage2_mult"" 
+UPDATEPROGRESS 84
+UPDATEPROGRESS 86
+UPDATEPROGRESS 87
+UPDATEPROGRESS 88
+UPDATEPROGRESS 89
+UPDATEPROGRESS 90
+MESSAGE "Compile Entity "Resultcheck"" 
+UPDATEPROGRESS 91
+MESSAGE "Compile Architecture "checker" of Entity "Resultcheck"" 
+UPDATEPROGRESS 93
+UPDATEPROGRESS 94
+UPDATEPROGRESS 96
+MESSAGE "Compile Entity "TBcircuit"" 
+UPDATEPROGRESS 97
+MESSAGE "Compile Architecture "arcTB" of Entity "TBcircuit"" 
+UPDATEPROGRESS 98
+UPDATEPROGRESS 99
+UPDATEPROGRESS 100
+ENDPROGRESS C:/My_Designs/final/finalproject/src/finalADVANCED.vhd
+SUCCESS "Compile success 0 Errors 0 Warnings  Analysis time :  0.1 [s]" 
