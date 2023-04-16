@@ -1,0 +1,314 @@
+// ENCS 411          LAB PROJECT          MAHMOUD SAMARA 1191602
+
+//Including Remote Library
+#include <IRremote.h>
+//Including LCD Library
+#include <LiquidCrystal.h>
+LiquidCrystal lcd(12, 11, 5, 4, 3, 2); 	//LCD PINS
+IRrecv Remote_button(6);				//IR REMOTE PIN
+decode_results REMOTEin;
+unsigned long BUTTON = 0;
+int UltraSonic1 = 7;					//FIRST Ultrasound PIN
+int UltraSonic2 = 8;					//SECOND Ultrasound PIN
+int DCMotorinput_1 = 9; 				//DC MOTOR 2 INPUT PINS
+int DCMotorinput_2 = 10;
+int Alarm = 13;							//Alarm piezo PIN
+long LevelPercent=0;
+long waterlevel=0;
+int distance1=0;
+int distance2=0;			 		   // variables to calc distance
+bool isManual = false; 				   //bool for manual value
+
+
+long convultradis1(int triggerPin, int echoPin)
+{
+  pinMode(triggerPin, OUTPUT);  // Clear the trigger
+  digitalWrite(triggerPin, LOW);
+  delayMicroseconds(2);
+  // Sets the trigger pin to HIGH state for 10 microseconds
+  digitalWrite(triggerPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(triggerPin, LOW);
+  pinMode(echoPin, INPUT);
+  // Reads the echo pin, and returns the sound wave travel time in microseconds
+  return pulseIn(echoPin, HIGH);
+}
+
+
+void ultrasonic()
+{
+// calc tank 1 distance
+ distance1 = 0.01724  * convultradis1(7 , 7) * 2;
+waterlevel = 100.0 * distance1/343;
+LevelPercent=100.0 - waterlevel; 			// calculate the water level in tank1 as percentage
+
+// calc tank2 level to see ti is full or empty  
+distance2 =  0.01724 * convultradis1(8, 8) * 2;   
+  
+///////////////////////////////////////////////////  
+  lcd.setCursor(0, 0);
+  lcd.print("tank 1 level is :");   // print statement to display in lcd
+  lcd.setCursor(4, 1);
+  lcd.print(LevelPercent);			// print water level in tank 1
+  lcd.print("%");
+  delay(400); 
+  lcd.clear();              		//clearing the lcd screen to show other sentences
+  
+  if(distance2 <= 20)              // if statement to check tank 2 situation if it is full or empty or neither
+  {
+  lcd.setCursor(0, 0);
+  lcd.print("Tank 2 is: ");			// print statement to display in lcd
+  lcd.setCursor(0, 1);
+  lcd.print("full");
+  delay(400); 						// delay 
+  lcd.clear();						//clearing the lcd screen to show other sentences
+  }
+  
+  else if(distance2>=330){  	// if distance = 343 then tank 2 is empty because it is far away from the sensor
+  lcd.setCursor(0, 0);
+  lcd.print("Tank 2 is: ");
+  lcd.setCursor(0, 1);
+  lcd.print("empty");
+  delay(400); 						// delay 
+  lcd.clear();						//clearing the lcd screen to show other sentences
+  }
+
+  else   								// when tank 2 not empty and not full go to else
+  {
+	lcd.setCursor(0, 0);
+ 	lcd.print("Tank 2 not empty ");		// print statement to display in lcd
+ 	lcd.setCursor(0, 1);
+    lcd.print("and not full");
+ 	delay(400);						// delay
+  	lcd.clear();					//clearing the lcd screen to show other sentences
+    
+  }
+
+  if(LevelPercent==100)			// if water percent is 100 then tank 1 is fall and distance is 0 
+  {
+  lcd.setCursor(0, 0);
+  lcd.print("tank 1 is: full");				// print statement to display in lcd
+  digitalWrite(9, LOW);						// turn off the water pump since tank 1 is full
+  digitalWrite(10, LOW);
+  delay(400);
+  lcd.clear();								//clearing the lcd screen to show other sentences
+  lcd.setCursor(0, 0);
+  lcd.print("Water pump: OFF");
+  delay(400); 								// delay 
+  lcd.clear();								//clearing the lcd screen to show other sentences
+  }
+    
+ else if(LevelPercent!=100 && distance2<330) // if water percent is not 100 in tank 1 and tank 2 not empty fill tank1
+ 
+ {
+  lcd.setCursor(0, 0);
+  lcd.print("tank1 is fill up");
+  delay(400);
+  lcd.clear();
+  digitalWrite(9, HIGH);						// turn on water pump since tank1 not full and tank 2 not empty
+  digitalWrite(10, LOW);
+  lcd.setCursor(0, 0);
+  lcd.print("Water pump: ON");				// print statement to display in lcd
+  delay(400);								// delay 
+  lcd.clear();								//clearing the lcd screen to show other sentences
+  
+ }
+        
+  else 									// else will come to it when tank 2 is empty so water pump off
+  {
+  lcd.setCursor(0, 0);
+  lcd.print("tank 2 empty so");			// print statement to display in lcd
+  lcd.setCursor(0, 1);
+  lcd.print("tnk 1 can't fill");			// print statement to display in lcd
+  delay(400);
+  lcd.clear();
+  digitalWrite(9, LOW);						// water pump off since tank 2 is empty
+  digitalWrite(10, LOW);
+  lcd.setCursor(0, 0);
+  lcd.print("Water pump: OFF"); 			// print statement to display in lcd
+  delay(400);  								// delay 
+  lcd.clear();								//clearing the lcd screen to show other sentences
+  }
+}
+
+void Buzzer()
+{
+ // calc tank 1 distance
+ distance1 = 0.01724  * convultradis1(7 , 7) * 2;//1/(2*29)
+ waterlevel = 100.0 * distance1/343;
+  // print the water level in tank1 as percentage
+ LevelPercent=100.0 - waterlevel; 
+// calc tank2 distance  
+ distance2 =  0.01724 * convultradis1(8, 8) * 2;//1/(2*29) 
+  
+ if(LevelPercent==100 && distance2 >= 330)  // when tank 1 is full and tank 2 is empty the alarm will turn on	
+  {
+  digitalWrite(Alarm, HIGH);				// turn on alarm
+  lcd.setCursor(4, 0);
+  lcd.print("Warnning!!");					// print statement to display in lcd
+  delay(400);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("tank 1 is: full");
+  lcd.setCursor(0, 1);
+  lcd.print("tank 2 is: empty");				    // print statement to display in lcd
+  delay(400); 
+  lcd.clear();									//clearing the lcd screen to show other sentences						
+  lcd.print("Alarm is ON");						// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();
+ }
+  
+  else if(LevelPercent==0 && distance2 >= 330)  // when tank 1 is empty and tank 2 is empty the alarm will turn on	
+  {
+  digitalWrite(Alarm, HIGH);				// turn on alarm
+  lcd.setCursor(4, 0);
+  lcd.print("Warnning!!");					// print statement to display in lcd
+  delay(400);
+  lcd.clear();
+  lcd.setCursor(0, 0);
+  lcd.print("tank 1 is: empty");
+  lcd.setCursor(0, 1);
+  lcd.print("tank 2 is: empty");				    // print statement to display in lcd
+  delay(400); 
+  lcd.clear();									//clearing the lcd screen to show other sentences						
+  lcd.print("Alarm is ON");						// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();
+  }
+  
+  else if(LevelPercent==100 && distance2 < 330)		// when tank 1 is full the alarm will turn on
+ {
+  digitalWrite(Alarm, HIGH);						// turn on alarm 
+  lcd.setCursor(4, 0);
+  lcd.print("Warnning!!");							// print statement to display in lcd			
+  lcd.setCursor(0, 1);
+  lcd.print("tank 1 is : full");					// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();										//clearing the lcd screen to show other sentences						
+  lcd.print("Alarm is ON");						// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();
+  }
+  
+  else if(distance2 >= 330 && LevelPercent!=100)			// when tank 2 is empty the alarm will turn on
+  {
+  digitalWrite(Alarm, HIGH);							// turn on alarm
+  lcd.setCursor(4, 0);
+  lcd.print("Warnning!!");				
+  lcd.setCursor(0, 1);
+  lcd.print("tank 2 is: empty");						// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();											//clearing the lcd screen to show other sentences						
+  lcd.print("Alarm is ON");						// print statement to display in lcd	
+  delay(400); 
+  lcd.clear();
+  }
+   
+  else 										// else alarm will turn off ( tank 1 not full or\and tank 2 not empty)
+  {
+    digitalWrite(Alarm, LOW);				// turn off alarm
+  	lcd.print("Alarm is OFF");						// print statement to display in lcd	
+  	delay(400); 
+  	lcd.clear();
+  } 
+}
+
+void setup()
+{
+    Serial.begin(9600);
+	pinMode(7,OUTPUT); 						// CONNECT FIRST Ultrasound WITH PIN 7
+	pinMode(8,OUTPUT);						// CONNECT SECOND Ultrasound WITH PIN 8
+  	pinMode(9,OUTPUT);						// CONNECT DC MOTOR INPUTS WITH PINS 9 10
+	pinMode(10,OUTPUT);	
+	lcd.begin(16, 2);						// set up the LCD's number of columns and rows
+    pinMode(13,OUTPUT);						// CONNECT PIEZO ALARM WITH PIN 13
+  	Remote_button.enableIRIn();				// enable the remote
+}
+
+void loop()
+{
+    
+if(Remote_button.decode(&REMOTEin))			//FOR CHECK BUTTON WE CLICKED
+{ 
+	BUTTON = REMOTEin.value;
+  	Remote_button.resume();
+} 
+ if(BUTTON == 16582903 ) 					// using button 1 in remote to change to automatic mode
+{
+   lcd.setCursor(0, 0);
+    lcd.print("Water PUMP is in");			// print statement to display in lcd
+    lcd.setCursor(0, 1);
+    lcd.print("Automatic mode");			// print statement to display in lcd
+    delay(400);
+    lcd.clear();
+   lcd.print("Alarm is OFF");
+    delay(400);
+    lcd.clear();
+   digitalWrite(Alarm, LOW);				// in automatic the alarm will keep off in all situtions
+   ultrasonic();							// calling ultrasonic function in automatic mode
+}
+  
+// Here when we are in manual mode I supposed that the motor is off
+// in the beginnig and it will change depend on the button and 
+// when we again press button 2 the motor will back to intial mode
+
+ if(BUTTON == 16615543 ) 					// using button 2 in remote to change to manual mode
+{
+  	digitalWrite(9, LOW);					// the intial situation for the motor when change from automatic to maual will be turn off and change depend on button 3 and 4
+  	digitalWrite(10, LOW);
+  	isManual = true;						// manual mode is true
+   	lcd.setCursor(0, 0);
+    lcd.print("Water PUMP is in");
+    lcd.setCursor(2, 1);
+    lcd.print("Manual mode");
+    delay(400);
+    lcd.clear();
+    Buzzer();								// calling buzzer function in manual mode
+}
+  else if (BUTTON == 16599223 && isManual)	// using button 3 in remote to turn on the motor in manual mode
+ {
+  digitalWrite(9, HIGH);
+  digitalWrite(10, LOW);
+  lcd.setCursor(0, 0);
+  lcd.print("Water pump: ON");				// print statement to display in lcd
+  lcd.setCursor(0, 1);
+  lcd.print("In manual mode");
+  delay(400);								// delay 		
+  lcd.clear();
+  Buzzer();									// calling buzzer function in manual mode
+  }
+  
+  else if (BUTTON == 16591063 && isManual)	// using button 4 in remote to turn off the motor in manual mode
+  {
+  digitalWrite(9, LOW);
+  digitalWrite(10,LOW);
+  lcd.setCursor(0, 0);
+  lcd.print("Water pump: OFF"); 			// print statement to display in lcd 			
+  lcd.setCursor(0, 1);
+  lcd.print("In manual mode");
+  delay(400);
+  lcd.clear(); 
+  Buzzer();           						// calling buzzer function in manual mode
+  }
+  
+  else if (BUTTON == 16599223 && !isManual)	// if using button 3 in remote without turn on manual mode (error)
+ {
+  lcd.setCursor(0, 0);
+  lcd.print("Activate Manual");				// print statement to display in lcd
+  lcd.setCursor(0, 1);
+  lcd.print("mode at first");
+  delay(400);								// delay 		
+  lcd.clear();
+  }
+  
+  else if (BUTTON == 16591063 && !isManual)	// if using button 4 in remote without turn on manual mode (error)
+  { 
+  lcd.setCursor(0, 0);
+  lcd.print("Activate Manual");				// print statement to display in lcd
+  lcd.setCursor(0, 1);
+  lcd.print("mode at first");
+  delay(400);								// delay 		
+  lcd.clear();
+  }
+}
