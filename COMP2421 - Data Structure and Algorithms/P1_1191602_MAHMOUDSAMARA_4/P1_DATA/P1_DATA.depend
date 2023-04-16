@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1619040888 source:c:\users\user\desktop\p1_1191602_mahmoudsamara_4\p1_data\p1_1191602_mahmoudsamara_4.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+
+1622359456 source:c:\users\user\desktop\comp2421\p1_1191602_mahmoudsamara_4\p1_data\p1_1191602_mahmoudsamara_4.c
+	<stdlib.h>
+	<stdio.h>
+	<string.h>
+	<math.h>
+

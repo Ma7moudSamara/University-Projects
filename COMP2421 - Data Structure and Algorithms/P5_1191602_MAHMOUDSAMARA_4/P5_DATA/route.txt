@@ -1,0 +1,16 @@
+The total Distance is : 1267
+The full Path is : 20 <-- 38 <-- 42 <-- 51 <-- 55 <-- 62 <-- 63 <-- 49 <-- 34 <-- 28 <-- 25 <-- 24 <-- 27 <-- 40 <-- 46 <-- 52 <-- 53 <-- 54 <-- 56 <-- 68 <-- 69 <-- 71 <-- 74 <-- 72 <-- 59 <-- 50 <-- 35 <-- 10
+The cities/towns you passed FROM ( 10 ) TO ARRIVE TO ( 20 ) are :  Al Hashimiya  <---  Jalbun  <---  Ash Shuhada  <---  Al Mutilla  <---  Telfit  <---  Fahma alJadida  <---  Wadi Duoq  <---  Wad adDabi  <---  Al Araqa  <---  Al Yamun  <---  Arrana  <---  Khirbet Suruj  <---  Jenin  <---  Birqin  <---  Kufeirit  <---  Umm atTut  <---  Al Mughayyir  <---  Bir alBasha  <---  Kafr Rai  <---  Al Kufeir  <---  Ajja  <---  al Asaasa  <---  Meithalun  <---  Anza  <---  Al Hafira  <---  Dhaher alAbed  <---  Beit Qad 
+
+The total Distance is : 449
+The full Path is : 200 <-- 206 <-- 214 <-- 213 <-- 212 <-- 187 <-- 140 <-- 93 <-- 70 <-- 36 <-- 39 <-- 26 <-- 91 <-- 106 <-- 98 <-- 100
+The cities/towns you passed FROM ( 100 ) TO ARRIVE TO ( 200 ) are :  Iskaka  <---  Umm Salamuna  <---  Al Manshiya  <---  Marah Maalla  <---  Deir Ballut  <---  Arab AbuFarda  <---  Beit Hasan  <---  Khirbet Humsa  <---  Sir  <---  Jenin Camp  <---  At Tarem  <---  Khirbet arRasalAhmar  <---  Bala  <---  Iktaba  <---  An NazlaalGharbiya 
+
+The total Distance is : 1522
+The full Path is : 250 <-- 231 <-- 205 <-- 209 <-- 211 <-- 232 <-- 236 <-- 234 <-- 229 <-- 235 <-- 241 <-- 228 <-- 199 <-- 173 <-- 204 <-- 203 <-- 202 <-- 207 <-- 208 <-- 218 <-- 217 <-- 192 <-- 178 <-- 152 <-- 102 <-- 101 <-- 92 <-- 89 <-- 83 <-- 85 <-- 60 <-- 31 <-- 20 <-- 5
+The cities/towns you passed FROM ( 5 ) TO ARRIVE TO ( 250 ) are :  Fuqeiqis  <---  Sair  <---  Az Zawiya  <---  Kafr adDik  <---  Beit Einun  <---  Beit Maqdum  <---  Idhna  <---  Beit Kahil  <---  Qla Zeta  <---  Khallet Edar  <---  Deir Samit  <---  Hamrush  <---  Deir Istiya  <---  Mas-ha  <---  Yasuf  <---  Biddya  <---  Izbat AbuAdam  <---  Rafat  <---  Arab arRashayida  <---  Kisan  <---  Al Maniya  <---  Ras Atiya  <---  Arab arRamadinashShamali  <---  Urif  <---  Attil  <---  Zeita  <---  Tammun  <---  Ras alFara  <---  Ath Thaghra  <---  Al Aqaba  <---  Qabatiya  <---  Khirbet AbdallahalYunis  <---  At Tayba 
+
+The total Distance is : 564
+The full Path is : 40 <-- 27 <-- 24 <-- 25 <-- 28 <-- 34 <-- 49 <-- 63 <-- 62 <-- 55 <-- 51 <-- 42 <-- 38 <-- 20 <-- 5
+The cities/towns you passed FROM ( 5 ) TO ARRIVE TO ( 40 ) are :  Jenin  <---  Khirbet Suruj  <---  Arrana  <---  Al Yamun  <---  Al Araqa  <---  Wad adDabi  <---  Wadi Duoq  <---  Fahma alJadida  <---  Telfit  <---  Al Mutilla  <---  Ash Shuhada  <---  Jalbun  <---  Al Hashimiya  <---  At Tayba 
+
