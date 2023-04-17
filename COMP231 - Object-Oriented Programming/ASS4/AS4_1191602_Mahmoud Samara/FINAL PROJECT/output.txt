@@ -1,0 +1,21 @@
+
+The Information for the Vehicle is :
+[ The ModelName is : Aqua , The Model Number is : ES500 , The Brand is: Toyota, The Owner of the Vehicle is : Nader, The Engine Type is : Hybrid, The Size of the Tunck is : 36.0, FuelConsumption is : 40.0, The NumberOfSeats for the Chosen Car is : 5, The Movable Distance for the Car is : 1440.0 km , The Power is : 360 ,The Cost for 100 Km: 13.075000000000001 NIS ]
+
+The Information for the Vehicle is :
+[ The ModelName is : Camley , The Model Number is : E100 , The Brand is: Toyota, The Owner of the Vehicle is : Ahmad, The Engine Type is : Gasoline, The Size of the Tunck is : 70.0, FuelConsumption is : 15.15, The NumberOfSeats for the Chosen Car is : 5, The Movable Distance for the Car is : 1060.5 km , The Power is : 550 ,The Cost for 100 Km: 34.521452145214525 NIS ]
+
+The Information for the Vehicle is :
+[ The ModelName is : Odyssey , The Model Number is : S500 , The Brand is: Honda, The Owner of the Vehicle is : Khaled, The Engine Type is : Diesel, The Size of the Tunck is : 56.0, FuelConsumption is : 11.0, The NumberOfSeats for the Chosen MiniVan is : 8, The Movable Distance for the MiniVan is : 616.0 km , The Power is : 220 ,The Cost for 100 Km: 36.54545454545455 NIS , Has Auto Doors :false]
+
+The Information for the Vehicle is :
+[ The ModelName is : Ridgeline , The Model Number is : DUG700 , The Brand is: Honda, The Owner of the Vehicle is : Waleed, The Engine Type is : Diesel, The Size of the Tunck is : 83.279, FuelConsumption is : 7.23, The NumberOfSeats for the Chosen Truck is : 5 , The NumberOfWheels for the Chosen Truck is : 6, The Movable Distance for the Truck is : 602.10717 km , The Power is : 250 ,The Cost for 100 Km: 55.60165975103733 NIS ]
+
+The Information for the Vehicle is :
+[ The ModelName is : Sienna , The Model Number is : A4 , The Brand is: Toyota, The Owner of the Vehicle is : Malik, The Engine Type is : Gasoline, The Size of the Tunck is : 75.0, FuelConsumption is : 9.0, The NumberOfSeats for the Chosen MiniVan is : 8, The Movable Distance for the MiniVan is : 675.0 km , The Power is : 320 ,The Cost for 100 Km: 58.111111111111114 NIS , Has Auto Doors :true]
+
+The Information for the Vehicle is :
+[ The ModelName is : Tundra , The Model Number is : EDGE500 , The Brand is: Toyota, The Owner of the Vehicle is : Sami, The Engine Type is : Diesel, The Size of the Tunck is : 100.0, FuelConsumption is : 6.76, The NumberOfSeats for the Chosen Truck is : 5 , The NumberOfWheels for the Chosen Truck is : 4, The Movable Distance for the Truck is : 676.0 km , The Power is : 310 ,The Cost for 100 Km: 59.46745562130177 NIS ]
+
+The Information for the Vehicle is :
+[ The ModelName is : Presage , The Model Number is : BX5000 , The Brand is: Nissan, The Owner of the Vehicle is : Shaher, The Engine Type is : Gasoline, The Size of the Tunck is : 60.0, FuelConsumption is : 7.0, The NumberOfSeats for the Chosen MiniVan is : 7, The Movable Distance for the MiniVan is : 420.0 km , The Power is : 250 ,The Cost for 100 Km: 74.71428571428572 NIS , Has Auto Doors :false]
