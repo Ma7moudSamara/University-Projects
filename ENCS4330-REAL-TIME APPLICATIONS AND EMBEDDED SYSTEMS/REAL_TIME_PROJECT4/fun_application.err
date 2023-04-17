@@ -1,0 +1,29 @@
+Warning[205] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 1 : Found directive in column 1. (PROCESSOR)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 6 : Found label after column 1. (TIME)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 7 : Found label after column 1. (CHAR)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 8 : Found label after column 1. (TIME_INT)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 9 : Found label after column 1. (TEMP)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 10 : Found label after column 1. (TEMP2)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 11 : Found label after column 1. (POS)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 12 : Found label after column 1. (FLAG)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 13 : Found label after column 1. (POS1)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 14 : Found label after column 1. (TIMET)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 24 : Found label after column 1. (COUNT)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 25 : Found label after column 1. (FOUR)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 26 : Found label after column 1. (FIVE)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 27 : Found label after column 1. (RESETINT)
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 38 : Found label after column 1. (ISR)
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 72 : Using default destination of 1 (file).
+Message[302] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 128 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 131 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 143 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 144 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[302] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 146 : Register in operand not in bank 0.  Ensure that bank bits are correct.
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 220 : Using default destination of 1 (file).
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 229 : Using default destination of 1 (file).
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 230 : Using default destination of 1 (file).
+Warning[207] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 347 : Found label after column 1. (LOOP)
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\FUN_APPLICATION.ASM 373 : Using default destination of 1 (file).
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\LCDIS.INC 26 : Using default destination of 1 (file).
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\LCDIS.INC 36 : Using default destination of 1 (file).
+Message[305] C:\USERS\DELL\DESKTOP\REAL_TIME_PROJECT4\LCDIS.INC 61 : Using default destination of 1 (file).

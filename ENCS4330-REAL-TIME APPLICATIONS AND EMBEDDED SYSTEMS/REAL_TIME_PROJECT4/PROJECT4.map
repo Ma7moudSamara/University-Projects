@@ -1,0 +1,115 @@
+MPLINK 4.48, Linker
+Linker Map File - Created Sun Feb 12 23:23:28 2023
+
+                                 Section Info
+                  Section       Type    Address   Location Size(Bytes)
+                ---------  ---------  ---------  ---------  ---------
+                   .org_0       code   0x000000    program   0x000004
+                   .cinit    romdata   0x000002    program   0x000004
+                   .org_1       code   0x000004    program   0x00037c
+.config_2007_FUN_APPLICATION.O       code   0x002007    program   0x000002
+
+
+
+                              Program Memory Usage 
+                               Start         End      
+                           ---------   ---------      
+                            0x000000    0x0001c1      
+                            0x002007    0x002007      
+            451 out of 8454 program addresses used, program memory utilization is 5%
+
+
+
+                              Symbols - Sorted by Name
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                   CHAR_A   0x00012c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               CHECK_END1   0x000145    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                CLEAR_LCD   0x000140    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    DELAY   0x00013c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  DELAY_D   0x000161    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 DELAY_DD   0x000182    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              END_PROGRAM   0x0000d7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    Equal   0x0000c4    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   INT111   0x00000f    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   INT222   0x000030    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 IN_ARRAY   0x0000f0    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                      ISR   0x000005    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     LOOP   0x0000e2    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     MAIN   0x00005e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFIVE   0x0000be    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFLAG   0x0000d1    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFOUR   0x0000b8    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  MAKEONE   0x0000a6    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                MAKETHREE   0x0000b2    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  MAKETWO   0x0000ac    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              PRINT_ARRAY   0x00014c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              SECOND_LINE   0x000114    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                SHEFT_STR   0x000132    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               SHEFT_STR2   0x00014b    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               SPACE_CHAR   0x000126    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    START   0x000138    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    STUCK   0x0000ef    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                TESTSPACE   0x0000c9    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  TIMEROT   0x000070    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   TIMINT   0x000060    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  TIMINT2   0x000067    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     inid   0x0001a7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                     init   0x000033    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    loop1   0x000189    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                    loopX   0x00018e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                    onems   0x000187    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                   pulseE   0x000192    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                   putLCD   0x0000f7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     send   0x000197    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                    start   0x00004e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                      xms   0x00018d    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+
+
+
+                              Symbols - Sorted by Address
+                     Name    Address   Location    Storage File                     
+                ---------  ---------  ---------  --------- ---------                
+                      ISR   0x000005    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   INT111   0x00000f    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   INT222   0x000030    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     init   0x000033    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    start   0x00004e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     MAIN   0x00005e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   TIMINT   0x000060    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  TIMINT2   0x000067    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  TIMEROT   0x000070    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  MAKEONE   0x0000a6    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  MAKETWO   0x0000ac    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                MAKETHREE   0x0000b2    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFOUR   0x0000b8    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFIVE   0x0000be    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    Equal   0x0000c4    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                TESTSPACE   0x0000c9    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 MAKEFLAG   0x0000d1    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              END_PROGRAM   0x0000d7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                     LOOP   0x0000e2    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    STUCK   0x0000ef    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 IN_ARRAY   0x0000f0    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   putLCD   0x0000f7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              SECOND_LINE   0x000114    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               SPACE_CHAR   0x000126    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                   CHAR_A   0x00012c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                SHEFT_STR   0x000132    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    START   0x000138    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    DELAY   0x00013c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                CLEAR_LCD   0x000140    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               CHECK_END1   0x000145    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+               SHEFT_STR2   0x00014b    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+              PRINT_ARRAY   0x00014c    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                  DELAY_D   0x000161    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                 DELAY_DD   0x000182    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\fun_application.asm
+                    onems   0x000187    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                    loop1   0x000189    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                      xms   0x00018d    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                    loopX   0x00018e    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                   pulseE   0x000192    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                     send   0x000197    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+                     inid   0x0001a7    program     static C:\Users\DELL\Desktop\REAL_TIME_PROJECT4\LCDIS.INC
+
+

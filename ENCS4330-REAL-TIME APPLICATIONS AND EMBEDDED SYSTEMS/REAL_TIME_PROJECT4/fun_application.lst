@@ -1,0 +1,1253 @@
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  1
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+Warning[205]: Found directive in column 1. (PROCESSOR)
+                      00001 PROCESSOR 16F877A
+                      00002 
+2007   3731           00003         __CONFIG 0x3731
+                      00004 
+                      00005         #INCLUDE "P16F877A.INC"         ; standard labels       
+                      00001         LIST
+                      00002 
+                      00003 ;==========================================================================
+                      00004 ;  MPASM PIC16F877A processor include
+                      00005 ; 
+                      00006 ;  (c) Copyright 1999-2013 Microchip Technology, All rights reserved
+                      00007 ;==========================================================================
+                      00008 
+                      00566         LIST
+Warning[207]: Found label after column 1. (TIME)
+  00000020            00006         TIME EQU 020
+Warning[207]: Found label after column 1. (CHAR)
+  00000021            00007         CHAR EQU 021
+Warning[207]: Found label after column 1. (TIME_INT)
+  00000023            00008         TIME_INT EQU 023
+Warning[207]: Found label after column 1. (TEMP)
+  00000022            00009         TEMP EQU 022
+Warning[207]: Found label after column 1. (TEMP2)
+  00000024            00010         TEMP2 EQU 024
+Warning[207]: Found label after column 1. (POS)
+  00000025            00011         POS EQU 025
+Warning[207]: Found label after column 1. (FLAG)
+  00000026            00012         FLAG EQU 026
+Warning[207]: Found label after column 1. (POS1)
+  00000027            00013     POS1 EQU 027
+Warning[207]: Found label after column 1. (TIMET)
+  00000028            00014         TIMET EQU 028
+                      00015 
+                      00016         CBLOCK 0X70
+  00000070            00017         PRE
+  00000071            00018         ONE
+  00000072            00019         TWO
+  00000073            00020         THREE
+                      00021 
+                      00022         ENDC
+                      00023 
+Warning[207]: Found label after column 1. (COUNT)
+  00000027            00024         COUNT EQU 0X27
+Warning[207]: Found label after column 1. (FOUR)
+  00000028            00025         FOUR EQU 0X28
+Warning[207]: Found label after column 1. (FIVE)
+  00000029            00026         FIVE EQU 0X29
+Warning[207]: Found label after column 1. (RESETINT)
+  00000030            00027         RESETINT EQU 0X30
+                      00028 ; PROGRAM BEGINS ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00029 
+                      00030         ORG             0               ; Default start address 
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  2
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0000   0000           00031         NOP                     ; required for ICD mode
+                      00032 
+0001   2???           00033         goto    init
+                      00034         ORG             4
+0004   2???           00035         GOTO    ISR
+                      00036         
+                      00037 
+Warning[207]: Found label after column 1. (ISR)
+0005   0000           00038         ISR             NOP
+0006   0830           00039                         MOVFW RESETINT
+0007   3C01           00040                         SUBLW D'1'
+0008   1903           00041                         BTFSC STATUS,Z
+0009   2???           00042                         CALL INT111
+                      00043                         
+000A   0830           00044                         MOVFW RESETINT
+000B   3C02           00045                         SUBLW D'2'
+000C   1903           00046                         BTFSC STATUS,Z
+000D   2???           00047                         CALL INT222
+                      00048 
+                      00049 
+000E   0009           00050                         RETFIE  
+                      00051 
+                      00052         
+                      00053 ; Port & display setup.....................................
+000F                  00054 INT111          
+000F   1283 1303      00055                         BANKSEL PORTC
+0011   10F4           00056                         BCF     Select,RS
+                      00057 
+0012   3025           00058                         MOVLW POS
+0013   0084           00059                         MOVWF FSR
+0014   0800           00060                         MOVF INDF, W
+                      00061 
+                      00062                         ;MOVLW POS
+0015   2???           00063                         CALL send
+0016   14F4           00064                         BSF     Select,RS
+                      00065 
+0017   0821           00066                         MOVFW CHAR
+0018   3C20           00067                         SUBLW D'32'
+0019   1903           00068                         BTFSC STATUS,Z
+001A   2???           00069                         CALL CHAR_A
+                      00070         
+                      00071 
+Message[305]: Using default destination of 1 (file).
+001B   0AA1           00072                         INCF CHAR
+001C   0821           00073                         MOVFW CHAR
+001D   3C5B           00074                         SUBLW D'91'
+001E   1903           00075                         BTFSC STATUS,Z
+001F   2???           00076                         CALL SPACE_CHAR
+                      00077 
+0020   3021           00078                         MOVLW CHAR
+0021   0084           00079                         MOVWF FSR
+0022   0800           00080                         MOVF INDF, W
+0023   2???           00081                         CALL send
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  3
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00082                                                 
+0024   10F4           00083                         BCF     Select,RS
+0025   3010           00084                         MOVLW 0X10
+0026   2???           00085                         CALL send
+0027   14F4           00086                         BSF     Select,RS
+0028   108B           00087                         BCF INTCON,INTF
+                      00088 
+0029   30FA           00089                         MOVLW D'250' 
+002A   00A3           00090                         MOVWF TIME_INT
+                      00091 
+002B   3003           00092                         MOVLW D'3' 
+002C   00A2           00093                         MOVWF TEMP
+                      00094 
+002D   30FA           00095                         MOVLW D'250' 
+002E   00A4           00096                         MOVWF TEMP2
+002F   0008           00097         RETURN
+                      00098 
+0030   0000           00099 INT222          NOP
+0031   2???           00100                         CALL init
+0032   0008           00101         RETURN
+                      00102 
+0033                  00103 init    
+0033   1283 1303      00104                 BANKSEL PORTB
+                      00105 
+0035   30FA           00106                 MOVLW D'250' 
+0036   00A3           00107                 MOVWF TIME_INT
+                      00108 
+0037   3003           00109                 MOVLW D'3' 
+0038   00A2           00110                 MOVWF TEMP
+                      00111 
+0039   30FA           00112                 MOVLW D'250' 
+003A   00A4           00113                 MOVWF TEMP2
+                      00114 
+003B   30C0           00115                 MOVLW H'C0' 
+003C   00A5           00116                 MOVWF POS
+                      00117 
+003D   3000           00118                 MOVLW D'0'
+003E   00A6           00119                 MOVWF FLAG
+                      00120 
+003F   3001           00121                 MOVLW D'1'
+0040   00A7           00122                 MOVWF COUNT
+                      00123 
+0041   3001           00124                 MOVLW D'1'
+0042   00B0           00125                 MOVWF RESETINT
+                      00126 
+0043   1283 1303      00127                 BANKSEL PORTB
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0045   1406           00128                 BSF     TRISB, 0
+                      00129 
+0046   1683 1303      00130                 BANKSEL TRISD           ; Select bank 1
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0048   0188           00131         CLRF    TRISD           
+                      00132 
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  4
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0049   1283 1303      00133                 BANKSEL PORTD
+004B   0188           00134                 CLRF    PORTD           ; Clear display outputs
+004C   2???           00135                 CALL    inid            ; Initialise the display
+004D   2???           00136                 GOTO    start 
+                      00137 
+                      00138 
+                      00139 ; MAIN LOOP ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00140 
+004E   2???           00141 start   CALL    putLCD          ; display input
+004F   1683 1303      00142                 BANKSEL TRISA
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0051   0188           00143                 CLRF TRISD
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0052   1406           00144                 BSF TRISB, RB0
+                      00145 
+Message[302]: Register in operand not in bank 0.  Ensure that bank bits are correct.
+0053   1701           00146                 BSF OPTION_REG,INTEDG ; Set “Rising” Edge
+0054   108B           00147                 BCF INTCON,INTF ; Reset “Interrupt Flag” of INT
+0055   160B           00148                 BSF INTCON,INTE ; Set “Interrupt Enable Bit” of INT
+0056   178B           00149                 BSF INTCON,GIE ; Set “Global” Int Enable
+0057   1283 1303      00150                 BANKSEL PORTC
+                      00151 
+0059   10F4           00152                 BCF     Select,RS       ; set display command mode
+005A   30C0           00153                 MOVLW   0XC0            ; code to home cursor
+005B   2???           00154                 CALL    send    ; output it to display
+005C   14F4           00155                 BSF     Select,RS       ; and restore data mode
+                      00156                 
+005D   2???           00157                 CALL SECOND_LINE
+                      00158 
+                      00159 
+005E   2???           00160 MAIN    CALL TIMINT                     
+005F   2???           00161                 GOTO MAIN
+                      00162 
+                      00163 
+0060   0000           00164 TIMINT  NOP
+0061   1283 1303      00165                 BANKSEL PORTC
+                      00166 
+0063   0BA3           00167                 DECFSZ TIME_INT,F 
+0064   0008           00168                 RETURN
+                      00169 
+0065   2???           00170                 CALL TIMINT2
+0066   0008           00171                 RETURN
+                      00172 
+0067   0000           00173 TIMINT2 NOP
+0068   1283 1303      00174                 BANKSEL PORTC
+                      00175 
+006A   30FA           00176                 MOVLW D'250' 
+006B   00A3           00177                 MOVWF TIME_INT
+006C   0BA4           00178                 DECFSZ TEMP2,F 
+006D   0008           00179                 RETURN
+                      00180 
+006E   2???           00181                 CALL TIMEROT
+006F   0008           00182                 RETURN
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  5
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00183 
+0070   0000           00184 TIMEROT NOP
+0071   1283 1303      00185                 BANKSEL PORTC
+                      00186 
+0073   30FA           00187                 MOVLW D'250' 
+0074   00A4           00188                 MOVWF TEMP2
+                      00189 
+0075   0BA2           00190                 DECFSZ TEMP,F 
+0076   0008           00191                 RETURN
+                      00192 
+                      00193 
+                      00194 
+0077   0827           00195                 MOVFW COUNT
+0078   3C01           00196                 SUBLW D'1'
+0079   1903           00197                 BTFSC STATUS,Z
+007A   2???           00198                 CALL MAKEONE
+                      00199 
+007B   0827           00200                 MOVFW COUNT
+007C   3C02           00201                 SUBLW D'2'
+007D   1903           00202                 BTFSC STATUS,Z
+007E   2???           00203                 CALL MAKETWO
+                      00204 
+007F   0827           00205                 MOVFW COUNT
+0080   3C03           00206                 SUBLW D'3'
+0081   1903           00207                 BTFSC STATUS,Z
+0082   2???           00208                 CALL MAKETHREE
+                      00209 
+0083   0827           00210                 MOVFW COUNT
+0084   3C04           00211                 SUBLW D'4'
+0085   1903           00212                 BTFSC STATUS,Z
+0086   2???           00213                 CALL MAKEFOUR
+                      00214 
+0087   0827           00215                 MOVFW COUNT
+0088   3C05           00216                 SUBLW D'5'
+0089   1903           00217                 BTFSC STATUS,Z
+008A   2???           00218                 CALL MAKEFIVE
+                      00219 
+Message[305]: Using default destination of 1 (file).
+008B   0AA7           00220                 INCF COUNT
+                      00221 
+008C   3021           00222                 MOVLW CHAR
+                      00223         
+008D   0084           00224                 MOVWF FSR
+008E   0800           00225                 MOVF INDF, W
+008F   2???           00226                 CALL send
+                      00227 
+0090   2???           00228                 CALL CHAR_A
+Message[305]: Using default destination of 1 (file).
+0091   0AA1           00229                 INCF CHAR
+Message[305]: Using default destination of 1 (file).
+0092   0AA5           00230                 INCF POS
+                      00231 
+0093   30FA           00232                 MOVLW D'250' 
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  6
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0094   00A3           00233                 MOVWF TIME_INT
+                      00234 
+0095   3003           00235                 MOVLW D'3' 
+0096   00A2           00236                 MOVWF TEMP
+                      00237 
+0097   30FA           00238                 MOVLW D'250' 
+0098   00A4           00239                 MOVWF TEMP2
+                      00240 
+0099   0825           00241                 MOVFW POS
+009A   3CC5           00242                 SUBLW H'C5' 
+009B   1903           00243                 BTFSC STATUS,Z
+009C   2???           00244                 CALL Equal
+                      00245 
+009D   0826           00246                 MOVFW FLAG
+009E   3C01           00247                 SUBLW D'1'
+009F   1903           00248                 BTFSC STATUS,Z
+00A0   2???           00249                 CALL TESTSPACE
+                      00250 
+00A1   0821           00251                 MOVFW CHAR
+00A2   3C20           00252                 SUBLW D'32'
+00A3   1903           00253                 BTFSC STATUS,Z
+00A4   2???           00254                 CALL MAKEFLAG
+                      00255 
+00A5   0008           00256                 RETURN  
+                      00257 
+00A6   0000           00258 MAKEONE NOP
+00A7   1283 1303      00259                 BANKSEL PORTC
+                      00260 
+                      00261 
+00A9   0821           00262                 MOVF CHAR, W
+00AA   00F1           00263                 MOVWF ONE
+                      00264 
+00AB   0008           00265                 RETURN
+                      00266 
+00AC   0000           00267 MAKETWO NOP
+00AD   1283 1303      00268                 BANKSEL PORTC
+                      00269 
+                      00270 
+                      00271 
+00AF   0821           00272                 MOVF CHAR, W
+00B0   00F2           00273                 MOVWF TWO
+                      00274 
+00B1   0008           00275                 RETURN
+                      00276 
+00B2   0000           00277 MAKETHREE       NOP
+00B3   1283 1303      00278                 BANKSEL PORTC
+                      00279 
+                      00280 
+00B5   0821           00281                 MOVF CHAR, W
+00B6   00F3           00282                 MOVWF THREE
+                      00283 
+00B7   0008           00284                 RETURN
+                      00285 
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  7
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00B8   0000           00286 MAKEFOUR        NOP
+00B9   1283 1303      00287                 BANKSEL PORTC
+                      00288 
+                      00289 
+                      00290         
+00BB   0821           00291                 MOVF CHAR, W
+00BC   00A8           00292                 MOVWF FOUR
+                      00293         
+00BD   0008           00294                 RETURN
+                      00295 
+00BE   0000           00296 MAKEFIVE        NOP
+00BF   1283 1303      00297                 BANKSEL PORTC
+                      00298 
+                      00299 
+                      00300 
+00C1   0821           00301                 MOVF CHAR, W
+                      00302 
+00C2   00A9           00303                 MOVWF FIVE
+                      00304 
+00C3   0008           00305                 RETURN
+                      00306         
+                      00307 
+00C4   0000           00308 Equal   NOP
+00C5   1283 1303      00309                 BANKSEL PORTC
+                      00310 
+                      00311         
+00C7   2???           00312                 CALL END_PROGRAM
+                      00313 
+00C8   0008           00314                 RETURN
+                      00315 
+00C9   0000           00316 TESTSPACE       NOP
+00CA   1283 1303      00317                         BANKSEL PORTC
+                      00318 
+00CC   0821           00319                         MOVFW CHAR
+00CD   3C20           00320                         SUBLW D'32'
+00CE   1903           00321                         BTFSC STATUS,Z
+00CF   2???           00322                         CALL Equal
+                      00323 
+00D0   0008           00324                         RETURN
+                      00325 
+00D1   0000           00326 MAKEFLAG        NOP
+00D2   1283 1303      00327                         BANKSEL PORTC
+                      00328 
+00D4   3001           00329                         MOVLW D'1'
+00D5   00A6           00330                         MOVWF FLAG
+                      00331 
+00D6   0008           00332                         RETURN
+                      00333 
+00D7   0000           00334 END_PROGRAM NOP
+00D8   1283 1303      00335                         BANKSEL PORTC
+00DA   10F4           00336                         BCF     Select,RS       ; set display command mode
+00DB   3001           00337                         MOVLW   0X01            
+00DC   2???           00338                         CALL    send    ; output it to display
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  8
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00339                 
+00DD   3080           00340                         MOVLW   0X80            ; code to home cursor
+00DE   2???           00341                         CALL    send    ; output it to display
+00DF   14F4           00342                         BSF     Select,RS       ; and restore data mode
+                      00343 
+00E0   3002           00344                         MOVLW D'2'
+00E1   00B0           00345                         MOVWF RESETINT
+                      00346                         
+Warning[207]: Found label after column 1. (LOOP)
+00E2                  00347             LOOP
+00E2   2???           00348                         CALL PRINT_ARRAY
+                      00349 
+00E3   3002           00350             MOVLW D'2'
+00E4   00B0           00351                         MOVWF RESETINT
+                      00352 
+00E5   2???           00353                         CALL DELAY_DD
+00E6   10F4           00354                         BCF     Select,RS
+00E7   3080           00355                         MOVLW   0X80            
+00E8   2???           00356                         CALL    send    
+00E9   301C           00357                         MOVLW   0X1C            
+00EA   2???           00358                         CALL    send
+00EB   14F4           00359                         BSF     Select,RS
+                      00360                                 
+00EC   2???           00361                         GOTO LOOP
+                      00362                         
+                      00363                         
+00ED   2???           00364                         GOTO STUCK
+                      00365 
+00EE   0008           00366                         RETURN
+00EF   2???           00367 STUCK GOTO STUCK
+                      00368 
+00F0   0000           00369 IN_ARRAY        NOP
+00F1   0800           00370                         MOVF INDF, W
+00F2   2???           00371                         CALL send
+                      00372                         
+Message[305]: Using default destination of 1 (file).
+00F3   0A84           00373                         INCF FSR
+00F4   1D04           00374                         BTFSS FSR, 2
+00F5   2???           00375                         GOTO IN_ARRAY
+00F6   0008           00376                         RETURN
+                      00377 
+                      00378 ; Output to display........................................
+                      00379 
+00F7   10F4           00380 putLCD  BCF     Select,RS       ; set display command mode
+00F8   3080           00381                 MOVLW   0X80            ; code to home cursor
+00F9   2???           00382                 CALL    send    ; output it to display
+00FA   14F4           00383                 BSF     Select,RS       ; and restore data mode
+                      00384 
+                      00385 ; Convert digits to ASCII and display......................
+                      00386 
+00FB   3045           00387         MOVLW   'E'                     ; load code
+00FC   2???           00388                 CALL    send            ; and output
+00FD   306E           00389                 MOVLW   'n'                     ; load code
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE  9
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+00FE   2???           00390                 CALL    send            ; and output
+00FF   3074           00391                 MOVLW   't'                     ; load code
+0100   2???           00392                 CALL    send            ; and output
+0101   3065           00393                 MOVLW   'e'             ; load code
+0102   2???           00394                 CALL    send            ; and output
+0103   3072           00395                 MOVLW   'r'                     ; load code
+0104   2???           00396                 CALL    send            ; and output
+                      00397 
+0105   3020           00398                 MOVLW   ' '                     ; load code
+0106   2???           00399                 CALL    send            ; and output
+                      00400 
+0107   3053           00401                 MOVLW   'S'                     ; load code
+0108   2???           00402                 CALL    send            ; and output
+0109   3074           00403                 MOVLW   't'                     ; load code
+010A   2???           00404                 CALL    send            ; and output
+010B   3072           00405                 MOVLW   'r'                     ; load code
+010C   2???           00406                 CALL    send            ; and output
+010D   3069           00407                 MOVLW   'i'                     ; load code
+010E   2???           00408                 CALL    send            ; and output
+010F   306E           00409                 MOVLW   'n'                     ; load code
+0110   2???           00410                 CALL    send            ; and output
+0111   3067           00411                 MOVLW   'g'                     ; load code
+0112   2???           00412                 CALL    send            ; and output
+                      00413 
+0113   0008           00414         RETURN                          ; done
+                      00415 
+0114   10F4           00416 SECOND_LINE     BCF     Select,RS
+0115   30C0           00417                         MOVLW D'192'
+0116   2???           00418                         CALL send
+0117   300F           00419                         MOVLW 0X0F
+0118   2???           00420                         CALL send
+0119   14F4           00421                         BSF     Select,RS
+011A   01A1           00422                         CLRF CHAR
+                      00423 
+                      00424                         
+                      00425                                 
+011B   3041           00426                         MOVLW D'65'
+011C   00A1           00427                         MOVWF CHAR
+                      00428 
+011D   3021           00429                         MOVLW CHAR
+011E   0084           00430                         MOVWF FSR
+011F   0800           00431                         MOVF INDF, W
+                      00432                         
+0120   2???           00433                         CALL send
+0121   10F4           00434                         BCF     Select,RS
+0122   3010           00435                         MOVLW 0X10
+0123   2???           00436                         CALL send
+0124   14F4           00437                         BSF     Select,RS
+                      00438 
+                      00439                         ;INCF CHAR
+0125   0008           00440                         RETURN
+                      00441 
+                      00442 
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 10
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0126   0000           00443 SPACE_CHAR  NOP
+0127   1283 1303      00444                         BANKSEL PORTC
+0129   3020           00445                         MOVLW D'32'
+012A   00A1           00446                         MOVWF CHAR
+012B   0008           00447                         RETURN
+                      00448 
+012C   0000           00449 CHAR_A          NOP
+012D   1283 1303      00450                         BANKSEL PORTC
+012F   3040           00451                         MOVLW D'64'
+0130   00A1           00452                         MOVWF CHAR
+0131   0008           00453                         RETURN
+                      00454 
+0132   0000           00455 SHEFT_STR       NOP
+0133   10F4           00456                         BCF     Select,RS       ; set display command mode
+0134   301C           00457                         MOVLW 0X1C
+0135   2???           00458                         CALL    send    ; output it to display
+0136   14F4           00459                         BSF     Select,RS       ; and restore data mode
+0137   0008           00460                         RETURN
+                      00461 
+0138   0000           00462 START           NOP
+0139   30FF           00463                         MOVLW D'255' 
+013A   00A8           00464                         MOVWF TIMET
+013B   0008           00465                         RETURN
+                      00466 
+013C   0000           00467 DELAY           NOP 
+013D   0BA8           00468                         DECFSZ TIMET,F 
+013E   2???           00469                         GOTO DELAY 
+013F   0008           00470                         RETURN
+                      00471 
+0140   10F4           00472 CLEAR_LCD       BCF     Select,RS       ; set display command mode
+0141   3001           00473                         MOVLW 0X01
+0142   2???           00474                         CALL    send    ; output it to display0X
+0143   14F4           00475                         BSF     Select,RS       ; and restore data mode
+0144   0008           00476                         RETURN
+                      00477 
+0145   0084           00478 CHECK_END1      MOVWF FSR
+0146   0800           00479                         MOVF INDF, W
+0147   3C8F           00480                         SUBLW H'8F'
+0148   1903           00481                         BTFSC STATUS,Z
+0149   2???           00482                         CALL SHEFT_STR2
+014A   0008           00483                         RETURN
+                      00484 
+014B   0008           00485 SHEFT_STR2 RETURN
+                      00486 
+014C   3071           00487 PRINT_ARRAY     MOVLW ONE
+014D   0084           00488                         MOVWF FSR
+014E   0800           00489                         MOVF INDF,W
+014F   2???           00490                         CALL send
+                      00491 
+0150   3072           00492                         MOVLW TWO
+0151   0084           00493                         MOVWF FSR
+0152   0800           00494                         MOVF INDF,W
+0153   2???           00495                         CALL send
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 11
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+                      00496 
+0154   3073           00497                         MOVLW THREE
+0155   0084           00498                         MOVWF FSR
+0156   0800           00499                         MOVF INDF,W
+0157   2???           00500                         CALL send
+                      00501 
+0158   3028           00502                         MOVLW FOUR
+0159   0084           00503                         MOVWF FSR
+015A   0800           00504                         MOVF INDF,W
+015B   2???           00505                         CALL send
+                      00506 
+015C   3029           00507                         MOVLW FIVE
+015D   0084           00508                         MOVWF FSR
+015E   0800           00509                         MOVF INDF,W
+015F   2???           00510                         CALL send
+0160   0008           00511                         RETURN
+                      00512 
+0161   2???           00513 DELAY_D         CALL START
+0162   2???           00514                         CALL DELAY
+0163   2???           00515                         CALL START
+0164   2???           00516                         CALL DELAY
+0165   2???           00517                         CALL START
+0166   2???           00518                         CALL DELAY
+0167   2???           00519                         CALL START
+0168   2???           00520                         CALL DELAY
+0169   2???           00521                         CALL START
+016A   2???           00522                         CALL DELAY
+016B   2???           00523                         CALL START
+016C   2???           00524                         CALL DELAY
+016D   2???           00525                         CALL START
+016E   2???           00526                         CALL DELAY
+016F   2???           00527                         CALL START
+0170   2???           00528                         CALL DELAY
+0171   2???           00529                         CALL START
+0172   2???           00530                         CALL DELAY
+0173   2???           00531                         CALL START
+0174   2???           00532                         CALL DELAY
+0175   2???           00533                         CALL START
+0176   2???           00534                         CALL DELAY
+0177   2???           00535                         CALL START
+0178   2???           00536                         CALL DELAY
+0179   2???           00537                         CALL START
+017A   2???           00538                         CALL DELAY
+017B   2???           00539                         CALL START
+017C   2???           00540                         CALL DELAY
+017D   2???           00541                         CALL START
+017E   2???           00542                         CALL DELAY
+017F   2???           00543                         CALL START
+0180   2???           00544                         CALL DELAY
+0181   0008           00545                         RETURN
+0182   2???           00546 DELAY_DD        CALL DELAY_D
+0183   2???           00547                         CALL DELAY_D
+0184   2???           00548                         CALL DELAY_D
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 12
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0185   2???           00549                         CALL DELAY_D
+0186   0008           00550                         RETURN
+                      00551 
+                      00552 ; INCLUDED ROUTINES ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+                      00553 
+                      00554 ; Include LCD driver routines
+                      00555 ;
+                      00556         #INCLUDE "LCDIS.INC"
+                      00001 ;       LCDIS.INC               MPB     19-12-05
+                      00002 ;
+                      00003 ;       Include file to operate 16x2 LCD display
+                      00004 ;       Uses GPR 70 - 75
+                      00005 ;       
+                      00006 ;       Final version
+                      00007 ;-------------------------------------------------------------------------------------------
+                      00008 
+  00000070            00009 Timer1  EQU     70              ; 1ms count register
+  00000071            00010 TimerX  EQU     71              ; Xms count register
+  00000072            00011 Var     EQU     72              ; Output variable
+  00000073            00012 Point   EQU     73              ; Program table pointer
+  00000074            00013 Select  EQU     74              ; Used to set or clear RS bit
+  00000075            00014 OutCod  EQU     75              ; Temp store for output code
+                      00015 
+  00000001            00016 RS      EQU     1               ; Register select output bit
+  00000002            00017 E       EQU     2               ; Enable output clocks display input
+                      00018 
+                      00019 
+                      00020 ;--------------------------------------------------------------------------------------------   
+                      00021 ;       1ms delay with 1us cycle time (1000 cycles)
+                      00022 ;--------------------------------------------------------------------------------------------   
+0187   30F9           00023 onems   MOVLW   D'249'          ; Count for 1ms delay 
+0188   00F0           00024         MOVWF   Timer1          ; Load count
+0189   0000           00025 loop1   NOP                     ; Pad for 4 cycle loop
+Message[305]: Using default destination of 1 (file).
+018A   0BF0           00026         DECFSZ  Timer1          ; Count
+018B   2???           00027         GOTO    loop1           ; until Z
+018C   0008           00028         RETURN                  ; and finish
+                      00029 
+                      00030 ;---------------------------------------------------------------------------------------------  
+                      00031 ;       Delay Xms
+                      00032 ;       Receives count in W, uses Onems
+                      00033 ;---------------------------------------------------------------------------------------------  
+018D   00F1           00034 xms     MOVWF   TimerX          ; Count for X ms
+018E   2???           00035 loopX   CALL    onems           ; Delay 1ms
+Message[305]: Using default destination of 1 (file).
+018F   0BF1           00036         DECFSZ  TimerX          ; Repeat X times 
+0190   2???           00037         GOTO    loopX           ; until Z
+0191   0008           00038         RETURN                  ; and finish
+                      00039 
+                      00040 ;---------------------------------------------------------------------------------------------  
+                      00041 ;       Generate data/command clock siganl E
+                      00042 ;---------------------------------------------------------------------------------------------  
+0192   1508           00043 pulseE  BSF     PORTD,E         ; Set E high
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 13
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+0193   2???           00044         CALL    onems           ; Delay 1ms
+0194   1108           00045         BCF     PORTD,E         ; Reset E low
+0195   2???           00046         CALL    onems           ; Delay 1ms
+0196   0008           00047         RETURN                  ; done
+                      00048 
+                      00049 ;---------------------------------------------------------------------------------------------  
+                      00050 ;       Send a command byte in two nibbles from RB4 - RB7
+                      00051 ;       Receives command in W, uses PulseE and Onems
+                      00052 ;---------------------------------------------------------------------------------------------  
+0197   00F5           00053 send    MOVWF   OutCod          ; Store output code
+0198   39F0           00054         ANDLW   0F0             ; Clear low nybble
+0199   0088           00055         MOVWF   PORTD           ; Output high nybble
+019A   18F4           00056         BTFSC   Select,RS       ; Test RS bit
+019B   1488           00057         BSF     PORTD,RS        ; and set for data
+019C   2???           00058         CALL    pulseE          ; and clock display register
+019D   2???           00059         CALL    onems           ; wait 1ms for display to complete
+                      00060 
+Message[305]: Using default destination of 1 (file).
+019E   0EF5           00061         SWAPF   OutCod          ; Swap low and high nybbles 
+019F   0875           00062         MOVF    OutCod,W        ; Retrieve output code
+01A0   39F0           00063         ANDLW   0F0             ; Clear low nybble
+01A1   0088           00064         MOVWF   PORTD           ; Output low nybble
+01A2   18F4           00065         BTFSC   Select,RS       ; Test RS bit
+01A3   1488           00066         BSF     PORTD,RS        ; and set for data
+01A4   2???           00067         CALL    pulseE          ; and clock display register
+01A5   2???           00068         CALL    onems           ; wait 1ms for display to complete
+01A6   0008           00069         RETURN                  ; done
+                      00070 
+                      00071 ;---------------------------------------------------------------------------------------------  
+                      00072 ;       Initialise the display
+                      00073 ;       Uses Send
+                      00074 ;---------------------------------------------------------------------------------------------  
+01A7   3064           00075 inid    MOVLW   D'100'          ; Load count for 100ms delay
+01A8   2???           00076         CALL    xms             ; and wait for display start
+01A9   30F0           00077         MOVLW   0F0             ; Mask for select code
+01AA   00F4           00078         MOVWF   Select          ; High nybble not masked
+                      00079 
+01AB   3030           00080         MOVLW   0x30            ; Load initial nibble
+01AC   0088           00081         MOVWF   PORTD           ; and output it to display
+01AD   2???           00082         CALL    pulseE          ; Latch initial code
+01AE   3005           00083         MOVLW   D'5'            ; Set delay 5ms
+01AF   2???           00084         CALL    xms             ; and wait
+01B0   2???           00085         CALL    pulseE          ; Latch initial code again
+01B1   2???           00086         CALL    onems           ; Wait 1ms
+01B2   2???           00087         CALL    pulseE          ; Latch initial code again
+01B3   1208           00088         BCF     PORTD,4         ; Set 4-bit mode
+01B4   2???           00089         CALL    pulseE          ; Latch it
+                      00090         
+01B5   3028           00091         MOVLW   0x28            ; Set 4-bit mode, 2 lines
+01B6   2???           00092         CALL    send            ; and send code
+01B7   3008           00093         MOVLW   0x08            ; Switch off display
+01B8   2???           00094         CALL    send            ; and send code
+01B9   3001           00095         MOVLW   0x01            ; Code to clear display
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 14
+
+
+LOC  OBJECT CODE     LINE SOURCE TEXT
+  VALUE
+
+01BA   2???           00096         CALL    send            ; and send code
+01BB   3006           00097         MOVLW   0x06            ; Enable cursor auto inc  
+01BC   2???           00098         CALL    send            ; and send code
+01BD   3080           00099         MOVLW   0x80            ; Zero display address
+01BE   2???           00100         CALL    send            ; and send code
+01BF   300C           00101         MOVLW   0x0C            ; Turn on display  
+01C0   2???           00102         CALL    send            ; and send code
+                      00103 
+01C1   0008           00104         RETURN                  ; Done
+                      00105         
+                      00557         
+                      00558 
+3731                  00559         END     ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 15
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+ACKDT                             00000005
+ACKEN                             00000004
+ACKSTAT                           00000006
+ADCON0                            0000001F
+ADCON1                            0000009F
+ADCS0                             00000006
+ADCS1                             00000007
+ADCS2                             00000006
+ADDEN                             00000003
+ADFM                              00000007
+ADIE                              00000006
+ADIF                              00000006
+ADON                              00000000
+ADRESH                            0000001E
+ADRESL                            0000009E
+BCLIE                             00000003
+BCLIF                             00000003
+BF                                00000000
+BRGH                              00000002
+C                                 00000000
+C1INV                             00000004
+C1OUT                             00000006
+C2INV                             00000005
+C2OUT                             00000007
+CCP1CON                           00000017
+CCP1IE                            00000002
+CCP1IF                            00000002
+CCP1M0                            00000000
+CCP1M1                            00000001
+CCP1M2                            00000002
+CCP1M3                            00000003
+CCP1X                             00000005
+CCP1Y                             00000004
+CCP2CON                           0000001D
+CCP2IE                            00000000
+CCP2IF                            00000000
+CCP2M0                            00000000
+CCP2M1                            00000001
+CCP2M2                            00000002
+CCP2M3                            00000003
+CCP2X                             00000005
+CCP2Y                             00000004
+CCPR1                             00000015
+CCPR1H                            00000016
+CCPR1L                            00000015
+CCPR2                             0000001B
+CCPR2H                            0000001C
+CCPR2L                            0000001B
+CHAR                              00000021
+CHAR_A                            0000012C
+CHECK_END1                        00000145
+CHS0                              00000003
+CHS1                              00000004
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 16
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+CHS2                              00000005
+CIS                               00000003
+CKE                               00000006
+CKP                               00000004
+CLEAR_LCD                         00000140
+CM0                               00000000
+CM1                               00000001
+CM2                               00000002
+CMCON                             0000009C
+CMIE                              00000006
+CMIF                              00000006
+COUNT                             00000027
+CREN                              00000004
+CSRC                              00000007
+CVR0                              00000000
+CVR1                              00000001
+CVR2                              00000002
+CVR3                              00000003
+CVRCON                            0000009D
+CVREN                             00000007
+CVROE                             00000006
+CVRR                              00000005
+D                                 00000005
+DATA_ADDRESS                      00000005
+DC                                00000001
+DELAY                             0000013C
+DELAY_D                           00000161
+DELAY_DD                          00000182
+D_A                               00000005
+D_NOT_A                           00000005
+E                                 00000002
+EEADR                             0000010D
+EEADRH                            0000010F
+EECON1                            0000018C
+EECON2                            0000018D
+EEDATA                            0000010C
+EEDATH                            0000010E
+EEIE                              00000004
+EEIF                              00000004
+EEPGD                             00000007
+END_PROGRAM                       000000D7
+Equal                             000000C4
+F                                 00000001
+FERR                              00000002
+FIVE                              00000029
+FLAG                              00000026
+FOUR                              00000028
+FSR                               00000004
+GCEN                              00000007
+GIE                               00000007
+GO                                00000002
+GO_DONE                           00000002
+GO_NOT_DONE                       00000002
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 17
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+I2C_DATA                          00000005
+I2C_READ                          00000002
+I2C_START                         00000003
+I2C_STOP                          00000004
+IBF                               00000007
+IBOV                              00000005
+INDF                              00000000
+INT111                            0000000F
+INT222                            00000030
+INTCON                            0000000B
+INTE                              00000004
+INTEDG                            00000006
+INTF                              00000001
+IN_ARRAY                          000000F0
+IRP                               00000007
+ISR                               00000005
+LOOP                              000000E2
+MAIN                              0000005E
+MAKEFIVE                          000000BE
+MAKEFLAG                          000000D1
+MAKEFOUR                          000000B8
+MAKEONE                           000000A6
+MAKETHREE                         000000B2
+MAKETWO                           000000AC
+NOT_A                             00000005
+NOT_ADDRESS                       00000005
+NOT_BO                            00000000
+NOT_BOR                           00000000
+NOT_DONE                          00000002
+NOT_PD                            00000003
+NOT_POR                           00000001
+NOT_RBPU                          00000007
+NOT_RC8                           00000006
+NOT_T1SYNC                        00000002
+NOT_TO                            00000004
+NOT_TX8                           00000006
+NOT_W                             00000002
+NOT_WRITE                         00000002
+OBF                               00000006
+OERR                              00000001
+ONE                               00000071
+OPTION_REG                        00000081
+OutCod                            00000075
+P                                 00000004
+PCFG0                             00000000
+PCFG1                             00000001
+PCFG2                             00000002
+PCFG3                             00000003
+PCL                               00000002
+PCLATH                            0000000A
+PCON                              0000008E
+PEIE                              00000006
+PEN                               00000002
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 18
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+PIE1                              0000008C
+PIE2                              0000008D
+PIR1                              0000000C
+PIR2                              0000000D
+PORTA                             00000005
+PORTB                             00000006
+PORTC                             00000007
+PORTD                             00000008
+PORTE                             00000009
+POS                               00000025
+POS1                              00000027
+PR2                               00000092
+PRE                               00000070
+PRINT_ARRAY                       0000014C
+PS0                               00000000
+PS1                               00000001
+PS2                               00000002
+PSA                               00000003
+PSPIE                             00000007
+PSPIF                             00000007
+PSPMODE                           00000004
+Point                             00000073
+R                                 00000002
+RA0                               00000000
+RA1                               00000001
+RA2                               00000002
+RA3                               00000003
+RA4                               00000004
+RA5                               00000005
+RB0                               00000000
+RB1                               00000001
+RB2                               00000002
+RB3                               00000003
+RB4                               00000004
+RB5                               00000005
+RB6                               00000006
+RB7                               00000007
+RBIE                              00000003
+RBIF                              00000000
+RC0                               00000000
+RC1                               00000001
+RC2                               00000002
+RC3                               00000003
+RC4                               00000004
+RC5                               00000005
+RC6                               00000006
+RC7                               00000007
+RC8_9                             00000006
+RC9                               00000006
+RCD8                              00000000
+RCEN                              00000003
+RCIE                              00000005
+RCIF                              00000005
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 19
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+RCREG                             0000001A
+RCSTA                             00000018
+RD                                00000000
+RD0                               00000000
+RD1                               00000001
+RD2                               00000002
+RD3                               00000003
+RD4                               00000004
+RD5                               00000005
+RD6                               00000006
+RD7                               00000007
+RE0                               00000000
+RE1                               00000001
+RE2                               00000002
+READ_WRITE                        00000002
+RESETINT                          00000030
+RP0                               00000005
+RP1                               00000006
+RS                                00000001
+RSEN                              00000001
+RX9                               00000006
+RX9D                              00000000
+R_NOT_W                           00000002
+R_W                               00000002
+S                                 00000003
+SECOND_LINE                       00000114
+SEN                               00000000
+SHEFT_STR                         00000132
+SHEFT_STR2                        0000014B
+SMP                               00000007
+SPACE_CHAR                        00000126
+SPBRG                             00000099
+SPEN                              00000007
+SREN                              00000005
+SSPADD                            00000093
+SSPBUF                            00000013
+SSPCON                            00000014
+SSPCON2                           00000091
+SSPEN                             00000005
+SSPIE                             00000003
+SSPIF                             00000003
+SSPM0                             00000000
+SSPM1                             00000001
+SSPM2                             00000002
+SSPM3                             00000003
+SSPOV                             00000006
+SSPSTAT                           00000094
+START                             00000138
+STATUS                            00000003
+STUCK                             000000EF
+SYNC                              00000004
+Select                            00000074
+T0CS                              00000005
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 20
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+T0IE                              00000005
+T0IF                              00000002
+T0SE                              00000004
+T1CKPS0                           00000004
+T1CKPS1                           00000005
+T1CON                             00000010
+T1INSYNC                          00000002
+T1OSCEN                           00000003
+T1SYNC                            00000002
+T2CKPS0                           00000000
+T2CKPS1                           00000001
+T2CON                             00000012
+TEMP                              00000022
+TEMP2                             00000024
+TESTSPACE                         000000C9
+THREE                             00000073
+TIME                              00000020
+TIMEROT                           00000070
+TIMET                             00000028
+TIME_INT                          00000023
+TIMINT                            00000060
+TIMINT2                           00000067
+TMR0                              00000001
+TMR0IE                            00000005
+TMR0IF                            00000002
+TMR1                              0000000E
+TMR1CS                            00000001
+TMR1H                             0000000F
+TMR1IE                            00000000
+TMR1IF                            00000000
+TMR1L                             0000000E
+TMR1ON                            00000000
+TMR2                              00000011
+TMR2IE                            00000001
+TMR2IF                            00000001
+TMR2ON                            00000002
+TOUTPS0                           00000003
+TOUTPS1                           00000004
+TOUTPS2                           00000005
+TOUTPS3                           00000006
+TRISA                             00000085
+TRISA0                            00000000
+TRISA1                            00000001
+TRISA2                            00000002
+TRISA3                            00000003
+TRISA4                            00000004
+TRISA5                            00000005
+TRISB                             00000086
+TRISB0                            00000000
+TRISB1                            00000001
+TRISB2                            00000002
+TRISB3                            00000003
+TRISB4                            00000004
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 21
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+TRISB5                            00000005
+TRISB6                            00000006
+TRISB7                            00000007
+TRISC                             00000087
+TRISC0                            00000000
+TRISC1                            00000001
+TRISC2                            00000002
+TRISC3                            00000003
+TRISC4                            00000004
+TRISC5                            00000005
+TRISC6                            00000006
+TRISC7                            00000007
+TRISD                             00000088
+TRISD0                            00000000
+TRISD1                            00000001
+TRISD2                            00000002
+TRISD3                            00000003
+TRISD4                            00000004
+TRISD5                            00000005
+TRISD6                            00000006
+TRISD7                            00000007
+TRISE                             00000089
+TRISE0                            00000000
+TRISE1                            00000001
+TRISE2                            00000002
+TRMT                              00000001
+TWO                               00000072
+TX8_9                             00000006
+TX9                               00000006
+TX9D                              00000000
+TXD8                              00000000
+TXEN                              00000005
+TXIE                              00000004
+TXIF                              00000004
+TXREG                             00000019
+TXSTA                             00000098
+Timer1                            00000070
+TimerX                            00000071
+UA                                00000001
+Var                               00000072
+W                                 00000000
+WCOL                              00000007
+WR                                00000001
+WREN                              00000002
+WRERR                             00000003
+Z                                 00000002
+_BODEN_OFF                        00003FBF
+_BODEN_ON                         00003FFF
+_BOREN_OFF                        00003FBF
+_BOREN_ON                         00003FFF
+_CONFIG                           00002007
+_CPD_OFF                          00003FFF
+_CPD_ON                           00003EFF
+MPASM  5.50               FUN_APPLICATION.ASM   2-12-2023  23:23:28         PAGE 22
+
+
+SYMBOL TABLE
+  LABEL                             VALUE 
+
+_CP_ALL                           00001FFF
+_CP_OFF                           00003FFF
+_CP_ON                            00001FFF
+_DEBUG_OFF                        00003FFF
+_DEBUG_ON                         000037FF
+_DEVID1                           00002006
+_FOSC_EXTRC                       00003FFF
+_FOSC_HS                          00003FFE
+_FOSC_LP                          00003FFC
+_FOSC_XT                          00003FFD
+_HS_OSC                           00003FFE
+_IDLOC0                           00002000
+_IDLOC1                           00002001
+_IDLOC2                           00002002
+_IDLOC3                           00002003
+_LP_OSC                           00003FFC
+_LVP_OFF                          00003F7F
+_LVP_ON                           00003FFF
+_PWRTE_OFF                        00003FFF
+_PWRTE_ON                         00003FF7
+_RC_OSC                           00003FFF
+_WDTE_OFF                         00003FFB
+_WDTE_ON                          00003FFF
+_WDT_OFF                          00003FFB
+_WDT_ON                           00003FFF
+_WRT_1FOURTH                      00003BFF
+_WRT_256                          00003DFF
+_WRT_HALF                         000039FF
+_WRT_OFF                          00003FFF
+_XT_OSC                           00003FFD
+__16F877A                         00000001
+__DEBUG                           1
+inid                              000001A7
+init                              00000033
+loop1                             00000189
+loopX                             0000018E
+onems                             00000187
+pulseE                            00000192
+putLCD                            000000F7
+send                              00000197
+start                             0000004E
+xms                               0000018D
+
+Errors   :     0
+Warnings :    16 reported,     0 suppressed
+Messages :    13 reported,     0 suppressed
+
+

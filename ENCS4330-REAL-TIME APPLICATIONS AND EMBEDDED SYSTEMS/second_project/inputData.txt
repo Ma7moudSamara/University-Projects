@@ -1,0 +1,8 @@
+total_number_of_people 1000
+Male 60
+Female 40
+Unserved 20
+Unhappy 20
+Satisfied 20
+queues_mail 25
+queues_female 30
